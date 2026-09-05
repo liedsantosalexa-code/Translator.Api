@@ -15,7 +15,10 @@ public class TranslationService : ITranslationService
         return new TranslationResponse
         {
             OriginalText = request.Text,
-            TranslatedText = 
+            TranslatedText = await _translationEngine.TranslateAsync
+            (  request.Text,
+               request.SourceLanguage,
+               request.TargetLanguage),
             SourceLanguage = request.SourceLanguage,
             TargetLanguage = request.TargetLanguage
         };
