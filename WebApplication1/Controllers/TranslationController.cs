@@ -17,10 +17,10 @@ namespace Translator.Api.Controllers
 
         }
         [HttpPost]
-        public ActionResult<TranslationResponse> Translate(TranslationRequest request)
+        public async Task<ActionResult<TranslationResponse>> Translate(TranslationRequest request)
 
         {
-            var response = _translationService.Translate(request);
+            var response = await _translationService.Translate(request);
 
 
 

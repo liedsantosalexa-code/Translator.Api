@@ -1,6 +1,12 @@
-@WebApplication1_HostAddress = http://localhost:5170
+@TranslatorApi_HostAddress = http://localhost:5170
 
-GET {{WebApplication1_HostAddress}}/weatherforecast/
-Accept: application/json
+POST {{TranslatorApi_HostAddress}}/api/Translation
+Content-Type: application/json
 
-###
+{
+  
+   "text": "Bonjour",
+  "sourceLanguage": "fr",
+  "targetLanguage": "es"
+
+}
