@@ -4,9 +4,16 @@ POST {{TranslatorApi_HostAddress}}/api/Translation
 Content-Type: application/json
 
 {
-  
-   "text": "Bonjour",
-  "sourceLanguage": "fr",
-  "targetLanguage": "es"
+    "text": "Bonjour",
+    "sourceLanguage": "fr",
+    "targetLanguage": "es"
+}
 
+###
+
+POST {{TranslatorApi_HostAddress}}/api/LanguageDetection
+Content-Type: application/json
+
+{
+    "text": "Hola, ¿como estas?"
 }

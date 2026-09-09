@@ -5,6 +5,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<ITranslationService, TranslationService>();
 
+builder.Services.AddScoped<ILanguageDetectionService, LanguageDetectionService>();
+
 builder.Services.AddControllers();
 
 builder.Services.AddHttpClient<ITranslationEngine, TranslationEngine>();

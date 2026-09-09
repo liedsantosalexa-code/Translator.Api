@@ -1,6 +1,12 @@
-﻿namespace Translator.Api.Interfaces
+﻿using Translator.Api.Models;
+
+
+
+namespace Translator.Api.Interfaces;
+
+public interface ILanguageDetectionService
 {
-    public class ILanguageDetectionService
-    {
-    }
+
+    Task<LanguageDetectionResponse> DetectLanguageAsync(LanguageDetectionRequest request);
+
 }
