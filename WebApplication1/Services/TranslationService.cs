@@ -6,27 +6,16 @@ namespace Translator.Api.Services;
 public class TranslationService : ITranslationService
 {
     private readonly ITranslationEngine _translationEngine;
-    public TranslationService(ITranslationEngine translationEngine)
+    private readonly ILanguageDetectionService _languageDetectionService;
+    public TranslationService(ITranslationEngine translationEngine, ILanguageDetectionService languageDetectionService)
     {  
         _translationEngine = translationEngine; 
-    }
-    public async Task<TranslationResponse> Translate(TranslationRequest request)
-    {
-        return new TranslationResponse
-        {
-            OriginalText = request.Text,
-            TranslatedText = await _translationEngine.TranslateAsync
-            (  request.Text,
-               request.SourceLanguage,
-               request.TargetLanguage),
-            SourceLanguage = request.SourceLanguage,
-            TargetLanguage = request.TargetLanguage
-        };
+        _languageDetectionService = languageDetectionService;
     }
 
     public List<SupportedLanguage> GetSupportedLanguages()
-{
-    return new List<SupportedLanguage>
+    {
+        return new List<SupportedLanguage>
     {
         new SupportedLanguage
         {
@@ -44,11 +33,47 @@ public class TranslationService : ITranslationService
             Name = "Français"
         }
     };
-}
+    }
+    public async Task<TranslationResponse> Translate(TranslationRequest request)
+    {
+        string sourceLanguage;
+        if (string.IsNullOrEmpty(request.SourceLanguage))
+
+        {
+            var detectedLanguage = await _languageDetectionService.DetectLanguageAsync(
+                new LanguageDetectionRequest
+                {
+                    Text = request.Text,
+                });
+
+            sourceLanguage = detectedLanguage.Language;
+
+        }
+        else
+        {
+
+          sourceLanguage = request.SourceLanguage!;
+
+        }
+
+        var translatedText = await _translationEngine.TranslateAsync(
+            request.Text,
+            sourceLanguage,
+            request.TargetLanguage);
+
+        return new TranslationResponse
+        {
+            OriginalText = request.Text,
+            TranslatedText = translatedText,
+            SourceLanguage = sourceLanguage,
+            TargetLanguage = request.TargetLanguage
 
 
 
+        };
 
 
+    }
 
+   
 }
