@@ -4,7 +4,7 @@ POST {{TranslatorApi_HostAddress}}/api/Translation
 Content-Type: application/json
 
 {
-    "text": "Hallo",
+    "text": "さようなら、兄さん.",
     "targetLanguage": "es"
 }
 

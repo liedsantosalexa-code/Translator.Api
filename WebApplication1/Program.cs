@@ -5,6 +5,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<ITranslationService, TranslationService>();
 
+builder.Services.AddSingleton<IConversationService, ConversationService>();
+
 builder.Services.AddHttpClient<ILanguageDetectionService, LanguageDetectionService>();
 
 builder.Services.AddControllers();

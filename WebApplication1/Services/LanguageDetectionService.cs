@@ -41,7 +41,7 @@ public class LanguageDetectionService : ILanguageDetectionService
             new HttpRequestMessage(HttpMethod.Post, url);
 
         httpRequest.Headers.Add(
-            "Ocp-Apim-Subscription-Key",
+            "Ocp-Apim-Subscription-Key", 
             key);
 
         httpRequest.Headers.Add(
