@@ -6,6 +6,6 @@ public interface IConversationService
 {
     Conversation CreateConversation();
     Conversation? GetConversation(Guid id);
-    void AddMessage(Guid conversationId, ConversationMessage message);
+    bool AddMessage(Guid conversationId, ConversationMessage message);
 
 }

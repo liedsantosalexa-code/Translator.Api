@@ -39,7 +39,12 @@ public class ConversationController : ControllerBase
     [HttpPost("{id}/messages")]
     public IActionResult AddMessage(Guid id, ConversationMessage message)
     {
-        _conversationService.AddMessage(id, message);
+        var added = _conversationService.AddMessage(id, message);
+
+        if (!added)
+        {
+            return NotFound();
+        }
 
         return Ok();
     }

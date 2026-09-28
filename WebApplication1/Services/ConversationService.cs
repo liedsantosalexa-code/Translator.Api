@@ -28,17 +28,16 @@ public class ConversationService : IConversationService
 
     }
 
-    public void AddMessage(Guid conversationId, ConversationMessage message)
+    public bool AddMessage(Guid conversationId, ConversationMessage message)
     {
       if (_conversations.TryGetValue(conversationId, out var conversation))
 
         {
             conversation.Messages.Add(message);
-
+            return true;
         }
 
+        return false;
 
     }
-    
-
 }

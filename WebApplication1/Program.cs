@@ -7,6 +7,8 @@ builder.Services.AddScoped<ITranslationService, TranslationService>();
 
 builder.Services.AddSingleton<IConversationService, ConversationService>();
 
+builder.Services.AddScoped<IConversationTranslationService, ConversationTranslationService>();
+
 builder.Services.AddHttpClient<ILanguageDetectionService, LanguageDetectionService>();
 
 builder.Services.AddControllers();
