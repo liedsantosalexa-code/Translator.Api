@@ -4,7 +4,7 @@ POST {{TranslatorApi_HostAddress}}/api/Translation
 Content-Type: application/json
 
 {
-    "text": "さようなら、兄さん.",
+    "text": "Sziasztok!",
     "targetLanguage": "es"
 }
 
@@ -14,5 +14,5 @@ POST {{TranslatorApi_HostAddress}}/api/LanguageDetection
 Content-Type: application/json
 
 {
-    "text": "Hello"
+    "text": "Hei alle sammen"
 }

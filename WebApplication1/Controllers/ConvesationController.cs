@@ -9,10 +9,17 @@ namespace Translator.Api.Controllers;
 public class ConversationController : ControllerBase
 {
     private readonly IConversationService _conversationService;
+    private readonly IConversationTranslationService _conversationTranslationService;
+    private readonly IConversationContextService _conversationContextService;
 
-    public ConversationController(IConversationService conversationService)
+    public ConversationController(
+        IConversationService conversationService,
+        IConversationTranslationService conversationTranslationService,
+        IConversationContextService conversationContextService)
     {
         _conversationService = conversationService;
+        _conversationTranslationService = conversationTranslationService;
+        _conversationContextService = conversationContextService;
     }
 
     [HttpPost]
@@ -37,15 +44,33 @@ public class ConversationController : ControllerBase
     }
 
     [HttpPost("{id}/messages")]
-    public IActionResult AddMessage(Guid id, ConversationMessage message)
+    public async Task<ActionResult<ConversationMessage>> AddMessage(
+        Guid id,
+        AddMessageRequest request)
     {
-        var added = _conversationService.AddMessage(id, message);
+        var message = await _conversationTranslationService.AddTranslatedMessage(
+            id,
+            request.Text,
+            request.TargetLanguage);
 
-        if (!added)
+        if (message == null)
         {
             return NotFound();
         }
 
-        return Ok();
+        return Ok(message);
+    }
+
+    [HttpGet("{id}/context")]
+    public ActionResult<string> GetContext(Guid id)
+    {
+        var context = _conversationContextService.BuildContext(id);
+
+        if (string.IsNullOrEmpty(context))
+        {
+            return NotFound();
+        }
+
+        return Ok(context);
     }
 }
